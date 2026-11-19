@@ -1,19 +1,22 @@
 <img src="docs/images/lucid-header.png" align="left" width="136" hspace="10" alt="Lucid">
 
-**A clean, free and private meditation app for Android.**
+**A feature-rich, private and free meditation app for Android.**
 
+<img src="docs/images/icons/smartphone.svg" width="18" align="top" alt=""> Local &nbsp;&nbsp;
 <img src="docs/images/icons/no_accounts.svg" width="18" align="top" alt=""> No account &nbsp;&nbsp;
 <img src="docs/images/icons/block.svg" width="18" align="top" alt=""> No ads &nbsp;&nbsp;
-<img src="docs/images/icons/visibility_off.svg" width="18" align="top" alt=""> No tracking &nbsp;&nbsp;
-<img src="docs/images/icons/smartphone.svg" width="18" align="top" alt=""> Stays on your phone
+<img src="docs/images/icons/visibility_off.svg" width="18" align="top" alt=""> No tracking
 
 <a href="https://github.com/Ignophi/lucid/releases/latest"><img src="https://img.shields.io/github/v/release/Ignophi/lucid?color=5B8FC9" alt="Latest release"></a>
 <a href="https://github.com/Ignophi/lucid/actions/workflows/flutter.yml"><img src="https://github.com/Ignophi/lucid/actions/workflows/flutter.yml/badge.svg" alt="Tests"></a>
 <img src="https://img.shields.io/badge/Android-7.0%2B-5B8FC9?logo=android&logoColor=white" alt="Android 7.0+">
 <a href="LICENSE"><img src="https://img.shields.io/badge/license-GPL--3.0-5B8FC9" alt="License: GPL-3.0"></a>
-<a href="https://github.com/jithware/brethap"><img src="https://img.shields.io/badge/based%20on-Brethap-8B949E" alt="Based on Brethap"></a>
 
 <br clear="left">
+
+> Lucid is a fork of [Brethap](https://github.com/jithware/brethap), redesigned
+> and extended. Thanks to Jithware for the original app. See
+> [Differences from Brethap](#differences-from-brethap).
 
 ## Features
 
@@ -44,10 +47,10 @@
   </tr>
 </table>
 
-<a href="docs/FEATURES.md#measurements"><img src="docs/images/icons/sensors.svg" width="18" align="top" alt=""> Measurements</a> &nbsp;&nbsp;
-<a href="docs/FEATURES.md#reminders"><img src="docs/images/icons/notifications.svg" width="18" align="top" alt=""> Reminders</a> &nbsp;&nbsp;
-<a href="docs/FEATURES.md#backup"><img src="docs/images/icons/cloud_upload.svg" width="18" align="top" alt=""> Automatic backup</a> &nbsp;&nbsp;
-<a href="docs/FEATURES.md#backup"><img src="docs/images/icons/import_export.svg" width="18" align="top" alt=""> Import and export</a>
+<img src="docs/images/icons/sensors.svg" width="18" align="top" alt=""> **[Measurements](docs/FEATURES.md#measurements)**: stillness, breaths and how quiet the room was, from the phone's own sensors. Optional.<br>
+<img src="docs/images/icons/notifications.svg" width="18" align="top" alt=""> **[Reminders](docs/FEATURES.md#reminders)**: a gentle nudge on days you have not meditated yet.<br>
+<img src="docs/images/icons/cloud_upload.svg" width="18" align="top" alt=""> **[Automatic backup](docs/FEATURES.md#backup)**: after each session, everything is saved to `Download/Lucid`.<br>
+<img src="docs/images/icons/import_export.svg" width="18" align="top" alt=""> **[Import and export](docs/FEATURES.md#backup)**: your sessions as CSV files, including exports from Brethap.
 
 <sub>Tap a feature for details.</sub>
 
@@ -57,11 +60,7 @@
 
 <sub>F-Droid and IzzyOnDroid are planned.</sub>
 
-<details>
-<summary><b>What's different from Brethap</b></summary>
-<br>
-
-Lucid is a fork of [Brethap](https://github.com/jithware/brethap) by Jithware.
+## Differences from Brethap
 
 - **New:** session reviews, analytics, measurements, achievements, reminders,
   automatic backup, the breathing wave, pause, your own programs.
@@ -71,13 +70,17 @@ Lucid is a fork of [Brethap](https://github.com/jithware/brethap) by Jithware.
 - **Removed:** Wear OS, web and iOS builds, translations (English only for
   now).
 
-</details>
+## Privacy
 
-<details>
-<summary><b>Build it yourself</b></summary>
-<br>
+Lucid sends nothing anywhere. Your sessions, settings and measurements stay on
+your phone and in the backups it saves to your Download folder. The microphone
+is only used if you turn on sound measurements; sound becomes loudness numbers
+as it comes in and is never stored. See [PRIVACY.md](PRIVACY.md).
 
-Flutter 3.41.2 (see `.fvmrc`) and Java 17, with a phone connected:
+## Build it yourself
+
+Requires Flutter 3.41.2 (see `.fvmrc`) and Java 17. With an Android phone
+connected (USB debugging on):
 
 ```bash
 flutter pub get          # download dependencies, generate texts
@@ -85,24 +88,38 @@ flutter test             # run the tests
 flutter run --release    # build and install on the phone
 ```
 
-To try it with three years of made-up sessions, import
+To try Lucid with a full history, import
 [docs/demo/lucid-demo-sessions.csv](docs/demo/lucid-demo-sessions.csv)
-(Sessions > ⋮ > Import). Signed releases: [docs/RELEASING.md](docs/RELEASING.md).
-
-</details>
+(Sessions > ⋮ > Import): three years of made-up sessions, used for the
+screenshots. Signed releases and the automatic APK builds are explained in
+[docs/RELEASING.md](docs/RELEASING.md).
 
 <details>
-<summary><b>Privacy</b></summary>
+<summary>Project layout</summary>
 <br>
 
-Lucid sends nothing anywhere. Sessions, settings and measurements stay on your
-phone and in the backups it saves to your Download folder. The microphone is
-only used if you turn on sound measurements. See [PRIVACY.md](PRIVACY.md).
+| Path | What it is |
+|---|---|
+| `lib/home_widget.dart`, `lib/breathing.dart`, `lib/breath_wave.dart` | Meditation screen, breathing timing, breathing wave |
+| `lib/programs.dart`, `lib/preferences_widget.dart` | Programs and the Preferences screen |
+| `lib/session_measure.dart`, `lib/session_recorder.dart` | Sensor recording and analysis |
+| `lib/achievements.dart`, `lib/achievements_widget.dart` | Achievements |
+| `lib/session_files.dart`, `lib/session_csv.dart` | Import, export, automatic backup |
+| `lib/analytics.dart`, `lib/analytics_widget.dart`, `lib/charts.dart` | Analytics |
+| `android/app/src/main/kotlin/…/SessionService.kt` | Keeps sessions running with the screen off |
+| `lib/l10n/app_en.arb` | All texts |
+| `fastlane/metadata/android/` | Store listing (used by F-Droid) |
 
 </details>
 
----
+## Contributing
 
-<sub>Based on [Brethap](https://github.com/jithware/brethap) by Jithware ·
-Free software under the [GPL-3.0](LICENSE) · Ideas and bugs:
-[Issues](https://github.com/Ignophi/lucid/issues)</sub>
+Bug reports and ideas are welcome in
+[Issues](https://github.com/Ignophi/lucid/issues). Please run
+`flutter analyze` and `flutter test` before opening a pull request.
+
+## License
+
+Lucid is a modified version of [Brethap](https://github.com/jithware/brethap)
+by Jithware. Like Brethap, it is free software under the
+[GNU General Public License v3](LICENSE).
