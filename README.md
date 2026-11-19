@@ -18,7 +18,9 @@
 > and extended. Thanks to Jithware for the original app. See
 > [Differences from Brethap](#differences-from-brethap).
 
-## Features
+## <img src="docs/images/icons/apps.svg" width="26" align="absmiddle" alt=""> Features
+
+Tap a feature for details.
 
 <table>
   <tr>
@@ -52,15 +54,15 @@
 <img src="docs/images/icons/cloud_upload.svg" width="18" align="top" alt=""> **[Automatic backup](docs/FEATURES.md#backup)**: after each session, everything is saved to `Download/Lucid`.<br>
 <img src="docs/images/icons/import_export.svg" width="18" align="top" alt=""> **[Import and export](docs/FEATURES.md#backup)**: your sessions as CSV files, including exports from Brethap.
 
-<sub>Tap a feature for details.</sub>
+## <img src="docs/images/icons/download.svg" width="26" align="absmiddle" alt=""> Download
 
-## Download
+<a href="https://github.com/Ignophi/lucid/releases/latest"><img src="https://raw.githubusercontent.com/rubenpgrady/get-it-on-github/refs/heads/main/get-it-on-github.png" height="80" alt="Get it on GitHub"></a>
+<img src="https://f-droid.org/badge/get-it-on.png" height="80" alt="Get it on F-Droid (coming soon)">
+<img src="https://gitlab.com/IzzyOnDroid/repo/-/raw/master/assets/IzzyOnDroidButtonGreyBorder_nofont.png" height="80" alt="Get it at IzzyOnDroid (coming soon)">
 
-<a href="https://github.com/Ignophi/lucid/releases/latest"><img src="https://img.shields.io/badge/Download-APK-5B8FC9?style=for-the-badge&logo=android&logoColor=white" height="34" alt="Download the APK"></a>
+F-Droid and IzzyOnDroid are coming soon.
 
-<sub>F-Droid and IzzyOnDroid are planned.</sub>
-
-## Differences from Brethap
+## <a name="differences-from-brethap"></a><img src="docs/images/icons/fork_right.svg" width="26" align="absmiddle" alt=""> Differences from Brethap
 
 - **New:** session reviews, analytics, measurements, achievements, reminders,
   automatic backup, the breathing wave, pause, your own programs.
@@ -70,14 +72,14 @@
 - **Removed:** Wear OS, web and iOS builds, translations (English only for
   now).
 
-## Privacy
+## <img src="docs/images/icons/lock.svg" width="26" align="absmiddle" alt=""> Privacy
 
 Lucid sends nothing anywhere. Your sessions, settings and measurements stay on
 your phone and in the backups it saves to your Download folder. The microphone
 is only used if you turn on sound measurements; sound becomes loudness numbers
 as it comes in and is never stored. See [PRIVACY.md](PRIVACY.md).
 
-## Build it yourself
+## <img src="docs/images/icons/build.svg" width="26" align="absmiddle" alt=""> Build it yourself
 
 Requires Flutter 3.41.2 (see `.fvmrc`) and Java 17. With an Android phone
 connected (USB debugging on):
@@ -112,13 +114,13 @@ screenshots. Signed releases and the automatic APK builds are explained in
 
 </details>
 
-## Contributing
+## <img src="docs/images/icons/handshake.svg" width="26" align="absmiddle" alt=""> Contributing
 
 Bug reports and ideas are welcome in
 [Issues](https://github.com/Ignophi/lucid/issues). Please run
 `flutter analyze` and `flutter test` before opening a pull request.
 
-## License
+## <img src="docs/images/icons/balance.svg" width="26" align="absmiddle" alt=""> License
 
 Lucid is a modified version of [Brethap](https://github.com/jithware/brethap)
 by Jithware. Like Brethap, it is free software under the
