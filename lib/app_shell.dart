@@ -209,13 +209,25 @@ class _AppShellState extends State<AppShell> with WidgetsBindingObserver {
           key: const Key(AppShell.keyAchievements),
           icon: const Icon(Icons.emoji_events_outlined),
           selectedIcon: const Icon(Icons.emoji_events),
-          label: Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Text(l10n.achievements),
-              const SizedBox(width: 8.0),
-              const BetaChip(),
-            ],
+          // The drawer gives its label unlimited width, so cap it here: with
+          // large text the name shortens instead of overflowing.
+          label: ConstrainedBox(
+            constraints: const BoxConstraints(maxWidth: 200.0),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Flexible(
+                  child: Text(
+                    l10n.achievements,
+                    maxLines: 1,
+                    softWrap: false,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ),
+                const SizedBox(width: 8.0),
+                const BetaChip(),
+              ],
+            ),
           ),
         ),
         const Padding(

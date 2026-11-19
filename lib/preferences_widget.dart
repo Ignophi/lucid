@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:hive_ce/hive.dart';
 import 'package:audioplayers/audioplayers.dart';
@@ -107,11 +109,13 @@ class _PreferencesWidgetState extends State<PreferencesWidget> {
   }
 
   /// Back to the default settings, without your own programs.
-  Future<void> _resetAll() async {
+  void _resetAll() {
     Preference preference = widget.preferences.getAt(0);
     preference.copy(Preference.getDefaultPref());
-    await preference.save();
-    await MyPrograms.clear(widget.settings);
+    // Hive applies a change in memory right away and writes it to disk in the
+    // background, so the screen does not wait for the write.
+    unawaited(preference.save());
+    unawaited(MyPrograms.clear(widget.settings));
     widget.callback();
     _init();
   }
@@ -120,44 +124,24 @@ class _PreferencesWidgetState extends State<PreferencesWidget> {
   Future<void> _saveAsProgram() async {
     AppLocalizations l10n = AppLocalizations.of(context);
     Preference preference = widget.preferences.getAt(0);
-    TextEditingController name = TextEditingController(text: preference.name);
     String? chosen = await showDialog<String>(
       context: context,
-      builder: (context) => AlertDialog(
-        title: Text(l10n.saveAsProgram),
-        content: TextField(
-          key: Key(PreferencesWidget.keyProgramName),
-          controller: name,
-          autofocus: true,
-          maxLength: 32,
-          decoration: InputDecoration(labelText: l10n.programName),
-        ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.of(context).pop(),
-            child: Text(l10n.cancel),
-          ),
-          FilledButton(
-            key: Key(PreferencesWidget.keySaveProgramConfirm),
-            onPressed: () => Navigator.of(context).pop(name.text.trim()),
-            child: Text(l10n.save),
-          ),
-        ],
-      ),
+      builder: (context) => _ProgramNameDialog(initial: preference.name),
     );
-    name.dispose();
     if (chosen == null || !mounted) return;
     if (chosen.isEmpty) {
       chosen = "${l10n.program} ${_myPrograms.length + 1}";
     }
     preference.name = chosen;
-    await preference.save();
-    await MyPrograms.add(
-      widget.settings,
-      name: chosen,
-      inhale: preference.inhale,
-      exhale: preference.exhale,
-      duration: preference.duration,
+    unawaited(preference.save());
+    unawaited(
+      MyPrograms.add(
+        widget.settings,
+        name: chosen,
+        inhale: preference.inhale,
+        exhale: preference.exhale,
+        duration: preference.duration,
+      ),
     );
     widget.callback();
     await _init();
@@ -173,7 +157,7 @@ class _PreferencesWidgetState extends State<PreferencesWidget> {
     AppLocalizations l10n = AppLocalizations.of(context);
     showAlertDialog(context, l10n.deleteProgram, program.name(l10n), () async {
       Navigator.of(context).pop();
-      await MyPrograms.remove(widget.settings, program.key);
+      unawaited(MyPrograms.remove(widget.settings, program.key));
       await _init();
       if (mounted) {
         ScaffoldMessenger.of(context)
@@ -865,6 +849,55 @@ class _PreferencesWidgetState extends State<PreferencesWidget> {
           ],
         ),
       ),
+    );
+  }
+}
+
+/// Asks for the name of a new program. It owns its text controller, so the
+/// controller lives until the dialog has finished closing.
+class _ProgramNameDialog extends StatefulWidget {
+  const _ProgramNameDialog({required this.initial});
+
+  final String initial;
+
+  @override
+  State<_ProgramNameDialog> createState() => _ProgramNameDialogState();
+}
+
+class _ProgramNameDialogState extends State<_ProgramNameDialog> {
+  late final TextEditingController _name = TextEditingController(
+    text: widget.initial,
+  );
+
+  @override
+  void dispose() {
+    _name.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    AppLocalizations l10n = AppLocalizations.of(context);
+    return AlertDialog(
+      title: Text(l10n.saveAsProgram),
+      content: TextField(
+        key: Key(PreferencesWidget.keyProgramName),
+        controller: _name,
+        autofocus: true,
+        maxLength: 32,
+        decoration: InputDecoration(labelText: l10n.programName),
+      ),
+      actions: [
+        TextButton(
+          onPressed: () => Navigator.of(context).pop(),
+          child: Text(l10n.cancel),
+        ),
+        FilledButton(
+          key: Key(PreferencesWidget.keySaveProgramConfirm),
+          onPressed: () => Navigator.of(context).pop(_name.text.trim()),
+          child: Text(l10n.save),
+        ),
+      ],
     );
   }
 }
