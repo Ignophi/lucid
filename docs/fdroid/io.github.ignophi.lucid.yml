@@ -1,0 +1,40 @@
+# Draft F-Droid metadata for Lucid, to add to fdroiddata as
+# metadata/io.github.ignophi.lucid.yml (see docs/RELEASING.md). F-Droid
+# reviewers may adjust the build recipe.
+
+Categories:
+  - Sports & Health
+License: GPL-3.0-only
+AuthorName: Ignophi
+SourceCode: https://github.com/Ignophi/lucid
+IssueTracker: https://github.com/Ignophi/lucid/issues
+Changelog: https://github.com/Ignophi/lucid/releases
+
+AutoName: Lucid
+
+RepoType: git
+Repo: https://github.com/Ignophi/lucid.git
+
+Builds:
+  - versionName: 1.0.0
+    versionCode: 1
+    commit: v1.0.0
+    output: build/app/outputs/flutter-apk/app-release.apk
+    srclibs:
+      - flutter@3.41.2
+    prebuild:
+      - export PUB_CACHE=$(pwd)/.pub-cache
+      - $$flutter$$/bin/flutter config --no-analytics
+      - $$flutter$$/bin/flutter pub get
+    scandelete:
+      - .pub-cache
+    build:
+      - export PUB_CACHE=$(pwd)/.pub-cache
+      - export UNSIGNED_RELEASE=true
+      - $$flutter$$/bin/flutter build apk --release
+
+AutoUpdateMode: Version
+UpdateCheckMode: Tags
+UpdateCheckData: pubspec.yaml|version:\s.+\+(\d+)|.|version:\s(.+)\+
+CurrentVersion: 1.0.0
+CurrentVersionCode: 1

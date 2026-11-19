@@ -1,0 +1,115 @@
+// See https://docs.flutter.dev/deployment/android
+
+plugins {
+    id "com.android.application"
+    id "kotlin-android"
+    id "dev.flutter.flutter-gradle-plugin"
+}
+
+def localProperties = new Properties()
+def localPropertiesFile = rootProject.file('local.properties')
+if (localPropertiesFile.exists()) {
+    localPropertiesFile.withReader('UTF-8') { reader ->
+        localProperties.load(reader)
+    }
+}
+
+def flutterVersionCode = localProperties.getProperty('flutter.versionCode').toInteger()
+if (flutterVersionCode == null) {
+    flutterVersionCode = 1
+}
+
+def flutterVersionName = localProperties.getProperty('flutter.versionName')
+if (flutterVersionName == null) {
+    flutterVersionName = '1.0'
+}
+
+def flutterCompileSdkVersion = localProperties.getProperty('flutter.compileSdkVersion')
+if (flutterCompileSdkVersion == null) {
+    flutterCompileSdkVersion = 36
+}
+
+def flutterMinSdkVersion = localProperties.getProperty('flutter.minSdkVersion')
+if (flutterMinSdkVersion == null) {
+    flutterMinSdkVersion = 24
+}
+
+def flutterTargetSdkVersion = localProperties.getProperty('flutter.targetSdkVersion')
+if (flutterTargetSdkVersion == null) {
+    flutterTargetSdkVersion = 36
+}
+
+def keystoreProperties = new Properties()
+def keystorePropertiesFile = rootProject.file('key.properties')
+if (keystorePropertiesFile.exists()) {
+    keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
+}
+
+android {
+
+    namespace 'io.github.ignophi.lucid'
+
+    compileSdk flutterCompileSdkVersion.toInteger()
+
+    sourceSets {
+        main.java.srcDirs += 'src/main/kotlin'
+    }
+
+    // https://docs.flutter.dev/deployment/android#reviewing-the-build-configuration
+    defaultConfig {
+        applicationId "io.github.ignophi.lucid"
+        minSdkVersion flutterMinSdkVersion
+        targetSdkVersion flutterTargetSdkVersion
+        versionCode flutterVersionCode
+        versionName flutterVersionName
+    }
+
+    // No Google dependency metadata in the APK (F-Droid requires this)
+    dependenciesInfo {
+        includeInApk = false
+        includeInBundle = false
+    }
+
+   signingConfigs {
+       release {
+           keyAlias keystoreProperties['keyAlias']
+           keyPassword keystoreProperties['keyPassword']
+           storeFile keystoreProperties['storeFile'] ? file(keystoreProperties['storeFile']) : null
+           storePassword keystoreProperties['storePassword']
+       }
+   }
+   buildTypes {
+       release {
+           // Signed with your own key when android/key.properties exists
+           // (see docs/RELEASING.md); otherwise with the debug key, so
+           // `flutter run --release` works. UNSIGNED_RELEASE=true leaves it
+           // unsigned, for F-Droid to sign.
+           signingConfig keystorePropertiesFile.exists()
+                   ? signingConfigs.release
+                   : (System.getenv("UNSIGNED_RELEASE") ? null : signingConfigs.debug)
+       }
+   }
+
+    compileOptions {
+        // Needed by flutter_local_notifications (daily reminders)
+        coreLibraryDesugaringEnabled true
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+    kotlinOptions {
+        jvmTarget = 17
+    }
+
+    // For latest versions see: https://developer.android.com/ndk/downloads
+    ndkVersion = "29.0.14206865"
+
+}
+
+flutter {
+    source '../..'
+}
+
+dependencies {
+    // Needed by flutter_local_notifications (daily reminders)
+    coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:2.1.4'
+}

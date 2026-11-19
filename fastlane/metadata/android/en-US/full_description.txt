@@ -1,0 +1,30 @@
+<p>Lucid is a calm meditation timer that helps you focus, stay awake and observe without judging. Follow a breathing pattern, review each session, and watch your practice grow over time. No account, no ads, no tracking.</p>
+
+<p><b>Meditate</b></p>
+<ul>
+<li>Breathing programs: equal, box, 4-7-8, physiological sigh, coherent and long-exhale breathing, or save your own</li>
+<li>A breathing circle and a live breathing wave that show each part of the breath in its own color</li>
+<li>Gentle cues: vibration, soft tones and spoken words, each optional</li>
+<li>Keeps going with the screen off or while another app is open; pause and resume any time</li>
+</ul>
+
+<p><b>Reflect</b></p>
+<ul>
+<li>Rate each session from 0 to 100, pick its type (sitting, lying down, walking, body scan) and add a comment</li>
+<li>Optional measurements with the phone's own sensors: stillness, position, estimated breaths, steps, and (only if you turn it on) how quiet the room was. Nothing is recorded or uploaded; only the numbers are kept</li>
+</ul>
+
+<p><b>See your progress</b></p>
+<ul>
+<li>A calendar colored by your scores, a session log, and analytics by day, month, year, time of day and weekday</li>
+<li>Achievements (beta): badges with levels for streaks, milestones and special moments</li>
+<li>Reminders on days you have not meditated yet</li>
+</ul>
+
+<p><b>Your data stays yours</b></p>
+<ul>
+<li>Everything stays on your phone</li>
+<li>Automatic monthly backups to the Download folder, plus CSV import and export (also reads exports from Brethap)</li>
+</ul>
+
+<p>Lucid is free software under the GNU GPL v3, based on Brethap by Jithware.</p>

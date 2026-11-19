@@ -1,0 +1,5 @@
+First release of Lucid, based on Brethap.
+- Breathing programs, your own programs and a live breathing wave
+- Session reviews, analytics, calendar and achievements (beta)
+- Optional sensor measurements, reminders and automatic backups
+- Sessions keep running with the screen off; pause and resume
