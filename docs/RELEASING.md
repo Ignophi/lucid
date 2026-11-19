@@ -71,8 +71,10 @@ Nov 2026, with scores, comments and measurements):
 
 A repository that F-Droid clients (F-Droid, Droid-ify, Neo Store) can add. It
 takes the APK from your GitHub releases, so your own signature is kept.
-Request inclusion with a link to the repository at
-<https://gitlab.com/IzzyOnDroid/repo> (open an issue). No fees, no ID.
+Request inclusion with an "App request" issue at
+<https://codeberg.org/IzzyOnDroid/repodata/issues> (needs a free Codeberg
+account). No fees, no ID. The APK must stay under 30 MB; the release
+workflow warns if it doesn't.
 
 ### F-Droid (main repository)
 

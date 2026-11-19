@@ -52,13 +52,20 @@ jobs:
 
       - run: flutter pub get
       - run: flutter test
-      - run: flutter build apk --release
+      # Phones only (32 and 64-bit ARM): leaves out x86_64, used by emulators
+      # and a few Chromebooks, to keep the APK small.
+      - run: flutter build apk --release --target-platform android-arm,android-arm64
 
       - name: Name the APK
         run: |
           NAME="lucid-${GITHUB_REF_NAME//\//-}"
           mv build/app/outputs/flutter-apk/app-release.apk "$NAME.apk"
           sha256sum "$NAME.apk" > "$NAME.apk.sha256"
+          SIZE=$(stat -c %s "$NAME.apk")
+          echo "APK size: $((SIZE / 1024 / 1024)) MB"
+          if [ "$SIZE" -gt 31457280 ]; then
+            echo "::warning::The APK is over 30 MB, the IzzyOnDroid limit"
+          fi
 
       - name: Attach to the release
         if: startsWith(github.ref, 'refs/tags/')

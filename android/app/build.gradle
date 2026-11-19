@@ -103,6 +103,13 @@ android {
     // For latest versions see: https://developer.android.com/ndk/downloads
     ndkVersion = "29.0.14206865"
 
+    // Store native libraries compressed: a much smaller APK to download
+    // (IzzyOnDroid allows up to 30 MB per app).
+    packaging {
+        jniLibs {
+            useLegacyPackaging = true
+        }
+    }
 }
 
 flutter {
