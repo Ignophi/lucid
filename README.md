@@ -57,10 +57,6 @@ Tap a feature for details.
 ## <img src="docs/images/icons/download.svg" width="26" align="absmiddle" alt=""> Download
 
 <a href="https://github.com/Ignophi/lucid/releases/latest"><img src="https://raw.githubusercontent.com/rubenpgrady/get-it-on-github/refs/heads/main/get-it-on-github.png" height="80" alt="Get it on GitHub"></a>
-<img src="https://f-droid.org/badge/get-it-on.png" height="80" alt="Get it on F-Droid (coming soon)">
-<img src="https://gitlab.com/IzzyOnDroid/repo/-/raw/master/assets/IzzyOnDroidButtonGreyBorder_nofont.png" height="80" alt="Get it at IzzyOnDroid (coming soon)">
-
-F-Droid and IzzyOnDroid are coming soon.
 
 ## <a name="differences-from-brethap"></a><img src="docs/images/icons/fork_right.svg" width="26" align="absmiddle" alt=""> Differences from Brethap
 
